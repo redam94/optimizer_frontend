@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
    && pip3 install -r requirements.txt
 
 # The port on which a container listens for connections
-EXPOSE 8501
+EXPOSE 8080
 
 # The command that run the app
-CMD streamlit run Home.py --server.address 0.0.0.0 --server.port 8501
+ENTRYPOINT [ "streamlit", "run", "main.py", "--server.address 0.0.0.0", "--server.port 8080"]
