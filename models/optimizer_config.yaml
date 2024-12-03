@@ -1,0 +1,10 @@
+initial_budget:
+  OLV: 2500.0
+  Social: 7000.0
+  Display: 3000.0
+  Search: 3500.0
+  Audio: 1000.0
+loss_fn_kwargs:
+  start_date: null
+  end_date: null
+  dim: "time"

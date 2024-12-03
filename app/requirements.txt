@@ -1,0 +1,8 @@
+streamlit
+pandas
+xarray
+numpy
+scipy
+pydantic
+budget_optimizer
+streamlit-elements
