@@ -20,4 +20,4 @@ RUN apt-get update && apt-get install -y \
 EXPOSE 8080
 
 # The command that run the app
-ENTRYPOINT [ "streamlit", "run", "main.py", "--server.address 0.0.0.0", "--server.port 8080"]
+ENTRYPOINT [ "streamlit", "run", "main.py", "--server.address", "0.0.0.0", "--server.port", "8080"]
