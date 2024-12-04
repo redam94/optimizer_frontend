@@ -41,6 +41,27 @@ class SimpleModel(AbstractModel):
     return x["prediction"]
   
   def contributions(self, x: xr.Dataset) -> xr.Dataset:
+    x = x.copy()
+    olv_contribution = self._shape_transform(x["OLV"], 1.2, 2)
+    social_contribution = self._shape_transform(x["Social"], 1.5, 3)
+    display_contribution = self._shape_transform(x["Display"], 1.8, 4)
+    search_contribution = self._shape_transform(x["Search"], 2.1, 5)
+    audio_contribution = self._shape_transform(x["Audio"], 2.4, 6)
+    t = x["trend"]
+    prediction = np.exp( 
+        .5*np.log(t+1) 
+        + .2*olv_contribution
+        + .1*social_contribution
+        + .05*display_contribution
+        + .15*search_contribution
+        + .1*audio_contribution
+        + np.log(1000))
+    
+    x["OLV"] = prediction - prediction/np.exp(.2*olv_contribution)
+    x["Social"] = prediction - prediction/np.exp(.1*social_contribution)
+    x["Display"] = prediction - prediction/np.exp(.05*display_contribution)
+    x["Search"] = prediction - prediction/np.exp(.15*search_contribution)
+    x["Audio"] = prediction - prediction/np.exp(.1*audio_contribution)
     return x
 
 def budget_to_data(budget: BudgetType, model: AbstractModel) -> xr.Dataset:
